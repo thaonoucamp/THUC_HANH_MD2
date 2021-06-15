@@ -16,7 +16,7 @@ public class Controller {
         return contact;
     }
 
-    public Controller() {
+    public Controller() throws Exception {
        contact = new Contact();
     }
 
@@ -62,21 +62,21 @@ public class Controller {
     }
 
     public void edit(List<Person> list) throws IOException {
-        FileIO.writerToFile(FileIO.FILE_PATH, this.getContact().getContactList());
+        FileIO.readerFromFile(FileIO.FILE_PATH);
 
         int index = getIndexPerson(list);
-        list.set(index, input());
-        FileIO.readerFromFile(FileIO.FILE_PATH);
+        list.set(index, this.input());
+        FileIO.writerToFile(FileIO.FILE_PATH, this.getContact().getContactList());
 
         show(list);
     }
 
     public void delete(List<Person> list) throws IOException {
-        FileIO.writerToFile(FileIO.FILE_PATH, this.getContact().getContactList());
+        FileIO.readerFromFile(FileIO.FILE_PATH);
 
         int index = getIndexPerson(list);
         list.remove(index);
-        FileIO.readerFromFile(FileIO.FILE_PATH);
+        FileIO.writerToFile(FileIO.FILE_PATH, this.getContact().getContactList());
 
         show(list);
     }
@@ -94,12 +94,14 @@ public class Controller {
     }
 
     public int getIndexPerson(List<Person> list) {
+        int index;
         System.out.println("Enter the number phone ");
         String telephone;
         telephone = sc.nextLine();
-        for (int i = 0; i <= list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (telephone.equalsIgnoreCase(list.get(i).getTelephone())) {
-                return i;
+                index = i;
+                return index;
             }
         }
         System.out.println("Find is not the telephone of contact");

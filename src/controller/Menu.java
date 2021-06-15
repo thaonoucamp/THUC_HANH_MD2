@@ -9,6 +9,9 @@ public class Menu {
     transient Scanner sc = new Scanner(System.in);
     Controller controller = new Controller();
 
+    public Menu() throws Exception {
+    }
+
     public void menu() throws IOException {
         int choice;
         do {

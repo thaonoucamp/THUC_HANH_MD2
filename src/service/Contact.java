@@ -13,9 +13,9 @@ public class Contact {
         return contactList;
     }
 
-    public Contact() {
+    public Contact() throws Exception{
         try{
-            contactList = FileIO.readerFromFile(FileIO.FILE_PATH);
+            contactList = (List<Person>) FileIO.readerFromFile(FileIO.FILE_PATH);
         } catch (IOException ioException) {
             ioException.printStackTrace();
             contactList = new ArrayList<>();

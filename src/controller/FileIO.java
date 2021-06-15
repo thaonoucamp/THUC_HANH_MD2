@@ -12,9 +12,13 @@ public class FileIO {
     public static void writerToFile(String filePath, List<Person> list) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(filePath);
-        bufferedWriter.flush();
+        String str = "";
+        for (int i = 0; i < list.size(); i++) {
+            str += list.get(i).getName() + "," + list.get(i).getGender() + "," + list.get(i).getAddress() + "," + list.get(i).getTelephone() + "," + list.get(i).getEmail() + "\n";
+            bufferedWriter.write(str);
+        }
         bufferedWriter.close();
+        fileWriter.close();
     }
 
     public static List<Person> readerFromFile(String content) throws IOException {
@@ -23,7 +27,7 @@ public class FileIO {
         FileReader fileReader = new FileReader(content);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        String line = null;
+        String line;
         while ((line = bufferedReader.readLine()) != null) {
             Person person = Person.getInstance();
             String[] item = line.split(",");
